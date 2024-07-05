@@ -1,0 +1,60 @@
+<div class="card my-4">
+  <form>
+    <div class="card-body">
+      <h2>New/Edit Order</h2>
+      <div class="form-group">
+        <label>Order Id:</label>
+        <input class="form-control" type="text" name="orderId" [value]="currentOrder.orderId" readOnly />
+      </div>
+      <div class="form-group">
+        <label>Order Date:</label>
+        <input class="form-control" type="text" name="createdAt" [value]="formatDateString(currentOrder.createdAt)" readOnly />
+      </div>
+      <div class="form-group">
+        <label>Customer:</label>
+        <input class="form-control" type="text" name="customer" [(ngModel)]="currentOrder.customerName" />
+      </div>
+      <h3>Items</h3>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th>Item Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>           
+            <tr *ngFor="let item of currentOrder.items;let i = index">
+              <td>
+                <select (change)="handleChange($event, item,i)" class="form-control">
+                  <option defaultValue value="">Select Items</option>
+                  <option *ngFor="let product of products" [value]="product.price" [selected]="product.name === item.itemName">{{ product.name }}</option>
+                </select>
+              </td>
+              <td>
+                <input class="form-control" type="text" name="unitPrice" [value]="item.unitPrice" />
+              </td>
+              <td>
+                <input class="form-control" type="number" name="quantity" (input)="handleQuantityChange($event, item)" (change)="handleQuantityChange($event, item)" [value]="item.quantity" />
+              </td>
+              <td>
+                <input class="form-control" type="number" [value]="item.unitPrice * item.quantity" name="amount" />
+              </td>
+              <td>
+                <button class="btn btn-sm btn-danger" type="button" (click)="removeItem(i)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-secondary mb-3" type="button" (click)="handleAddItem()">Add Item</button>
+      <h3>Order Amount {{ currentOrder.orderAmount }}</h3>
+      <button class="btn btn-success" type="submit" (click)="handleSave(currentOrder._id)">Save</button>
+      &nbsp; &nbsp;
+      <button class="btn btn-danger" (click)="navOrder()">Cancel</button>
+    </div>
+  </form>
+</div>

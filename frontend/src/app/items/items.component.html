@@ -1,0 +1,28 @@
+<h1 class="my-4">All Products</h1>
+<div class="d-flex justify-content-between">
+   <button class="btn btn-primary mb-4" (click)="navOrder()">Go Back Order</button>
+   <button class="btn btn-primary mb-4" (click)="navAddItem()">Add Product</button>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th>Thumbnail</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of allProducts">
+        <td class="text-center"><img class="thumbnail" src="https://images.pexels.com/photos/8015784/pexels-photo-8015784.jpeg" alt=""></td>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td class="actions">
+          <button class="btn btn-sm btn-warning mr-2" (click)="handleEdit(product._id)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="handleDelete(product._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
