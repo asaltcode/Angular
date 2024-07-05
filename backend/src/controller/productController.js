@@ -73,14 +73,16 @@ const getProductById = async (req, res, next) =>{
 }
 const editProduct = async (req, res, next) =>{
     try {
-        console.log(req.file)
-        const product = await ProductModel.findById( req.params.id, req.body, { new: true } )
+        req.body.image = `${req.protocol}://${req.rawHeaders[1]}/images/${req.file.filename}`
+        req.body.thumbnail = `${req.protocol}://${req.rawHeaders[1]}/images/thumbnails/${req.file.filename}`
+        const product = await ProductModel.findByIdAndUpdate( req.params.id, req.body, { new: true } )
         if (!product) {
           return  res.status(404).send({
                 success: false,
                 message: "Not found"
             })
           } 
+          //${req.protocol}://${req.host}/images/`${req.file.filename}`
           res.status(201).send({
             success: true,
             message: "Product edited",
