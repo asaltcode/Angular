@@ -14,6 +14,7 @@ import { ApiService } from '../api.service';
 export class ItemsComponent implements OnInit {
   constructor(private router: Router, private apiService: ApiService){}
    allProducts:any[] = []
+   defaultImg:String = "https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044872-6430781.png"
    ngOnInit(): void {
      this.apiService.getProducts().subscribe((data)=>{
       this.allProducts = data.product

@@ -13,9 +13,34 @@ import { CommonModule } from '@angular/common';
 })
 export class AddProductComponent {
   constructor(private router: Router, private apiService: ApiService){}
-   newProduct:any = {name: "hi", price: 0}
+   defaultImg:String = "https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044872-6430781.png"
+   newProduct:any = {name:"", price: 0}
+   selectedFile:any;
+   setAvatarPreview:String = ""
+
+
+   onFileSelected(event: Event):void {
+    const input = event.target as HTMLInputElement;
+    if(input.files?.length){
+      this.selectedFile = input.files[0]
+      const reader = new FileReader
+           reader.onload = () =>{
+            if(reader.readyState === 2){
+              this.setAvatarPreview = `${reader.result}`
+            }
+           }
+           reader.readAsDataURL(input.files[0])
+    }
+   }
+
    creatProduct () {
-      this.apiService.addProduct(this.newProduct)
+      const formData = new FormData()
+      formData.append('image', this.selectedFile);
+      formData.append('name', this.newProduct.name)
+      formData.append('price', this.newProduct.price)
+      this.apiService.addProduct(formData).subscribe((data)=>{
+        this.navOrder()
+      })
    }
    navOrder(){
     this.router.navigate(["items"])

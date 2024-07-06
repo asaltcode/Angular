@@ -13,8 +13,8 @@
     <tbody>
       <tr>
         <td class="text-center">
-          @if(setAvatarPreview){
-            <img class="thumbnail" src={{setAvatarPreview}} alt="">
+          @if(currentProduct.thumbnail){
+            <img class="thumbnail" src={{currentProduct.thumbnail}} alt="">
           }@else {
             <img class="thumbnail" src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044872-6430781.png" alt="">
           }

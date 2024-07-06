@@ -3,8 +3,11 @@ import ProductModel from "../model/productModel.js"
 
 const addProduct = async (req, res, next) =>{
     try {
-        const {name, price} = req.body
-        const product = await ProductModel.create({name, price})
+        if(req.file){
+            req.body.image = `${req.protocol}://${req.rawHeaders[1]}/images/${req.file.filename}`
+            req.body.thumbnail = `${req.protocol}://${req.rawHeaders[1]}/images/thumbnails/${req.file.filename}`
+        }
+        const product = await ProductModel.create(req.body)
         
         res.status(201).send({
             success: true,
@@ -82,7 +85,6 @@ const editProduct = async (req, res, next) =>{
                 message: "Not found"
             })
           } 
-          //${req.protocol}://${req.host}/images/`${req.file.filename}`
           res.status(201).send({
             success: true,
             message: "Product edited",

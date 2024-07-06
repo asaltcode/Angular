@@ -15,10 +15,16 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of allProducts">
-        <td class="text-center"><img class="thumbnail" src="https://images.pexels.com/photos/8015784/pexels-photo-8015784.jpeg" alt=""></td>
+        <td class="text-center">
+          @if(product.thumbnail){
+            <img class="thumbnail" src={{product.thumbnail}} alt="">
+          }@else {
+            <img class="thumbnail" src={{defaultImg}} alt="">
+          }
+        </td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
-        <td class="actions">
+        <td class="actions d-flex justify-content-around p-3">
           <button class="btn btn-sm btn-warning mr-2" (click)="handleEdit(product._id)">Edit</button>
           <button class="btn btn-sm btn-danger" (click)="handleDelete(product._id)">Delete</button>
         </td>

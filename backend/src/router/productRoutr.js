@@ -4,7 +4,7 @@ import { upload, createThumbnail } from '../config/fileUpload.js';
 
 const router = express.Router();
 
-router.post("/", productController.addProduct);
+router.post("/", upload.single('image'), createThumbnail, productController.addProduct);
 router.get('/', productController.getProduct);
 router.get('/:id', productController.getProductById);
 router.put('/:id', upload.single('image'), createThumbnail, productController.editProduct);

@@ -12,11 +12,17 @@
     </thead>
     <tbody>
       <tr>
-        <td class="text-center"><img class="thumbnail" src="https://images.pexels.com/photos/8015784/pexels-photo-8015784.jpeg" alt=""></td>
+        <td class="text-center">
+          @if (setAvatarPreview) {
+            <img class="thumbnail" src={{setAvatarPreview}} alt="">
+          }@else {
+            <img class="thumbnail" src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044872-6430781.png" alt="">
+          }
+        </td>
         <td><input class="form-control" name="name" type="text" [(ngModel)]="newProduct.name"/></td>
-        <td><input class="form-control" type="number" name="price"/></td>
-        <td class="actions">
-          <button class="btn btn-sm btn-warning mr-2">Add</button>
+        <td><input class="form-control" type="number" name="price" [(ngModel)]="newProduct.price"/></td>
+        <td class="actions d-flex justify-content-around">
+          <button class="btn btn-sm btn-warning mr-2" (click)="creatProduct()">Add</button>
         </td>
       </tr>
     </tbody>
@@ -30,8 +36,12 @@
       <div class="text">
          <span>Click to upload image</span>
          </div>
-         <input type="file" id="file">
+         <input type="file" id="file" (change)="onFileSelected($event)">
       </label>
-     <img class="image" src="https://images.pexels.com/photos/8015784/pexels-photo-8015784.jpeg" alt="">
+      @if (setAvatarPreview) {
+        <img class="image" src={{setAvatarPreview}} alt="">
+      }@else {
+       <img class="image" src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044872-6430781.png" alt="">
+      }
   </div>
 </div>
