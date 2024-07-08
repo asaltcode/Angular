@@ -33,8 +33,8 @@ export class ItemsComponent implements OnInit {
    handleDelete(id:String){
     let newArray = [...this.allProducts]
     newArray = newArray.filter((data) => data._id !== id)
-    this.allProducts = newArray
     if(confirm("Are you sure delete this product")){
+      this.allProducts = newArray
       this.apiService.deleteProduct(id).subscribe((data)=>{})
     }
    }

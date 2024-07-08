@@ -1,4 +1,5 @@
 import ProductModel from "../model/productModel.js"
+import APIFeatures from "../utils/apiFeatures.js"
 
 
 const addProduct = async (req, res, next) =>{
@@ -76,8 +77,12 @@ const getProductById = async (req, res, next) =>{
 }
 const editProduct = async (req, res, next) =>{
     try {
-        req.body.image = `${req.protocol}://${req.rawHeaders[1]}/images/${req.file.filename}`
-        req.body.thumbnail = `${req.protocol}://${req.rawHeaders[1]}/images/thumbnails/${req.file.filename}`
+        if(req.file){
+            req.body.image = `${req.protocol}://${req.rawHeaders[1]}/images/${req.file.filename}`
+            req.body.thumbnail = `${req.protocol}://${req.rawHeaders[1]}/images/thumbnails/${req.file.filename}`
+        }
+        // req.body.image = `${req.protocol}://${req.rawHeaders[1]}/images/${req.file.filename}`
+        // req.body.thumbnail = `${req.protocol}://${req.rawHeaders[1]}/images/thumbnails/${req.file.filename}`
         const product = await ProductModel.findByIdAndUpdate( req.params.id, req.body, { new: true } )
         if (!product) {
           return  res.status(404).send({
@@ -98,4 +103,19 @@ const editProduct = async (req, res, next) =>{
     }
 }
 
-export default {addProduct, getProduct, deleteProduct, getProductById, editProduct}
+const searchProduct = async (req, res, next) => {
+    try {
+    const ApiFeatre = new APIFeatures(ProductModel.find(), req.query).search()
+    const prodcut = await ApiFeatre.query
+    res.status(200).send({
+      prodcut
+    })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
+
+export default {addProduct, getProduct, deleteProduct, getProductById, editProduct, searchProduct}

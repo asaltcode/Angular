@@ -30,18 +30,18 @@
             <tr *ngFor="let item of currentOrder.items;let i = index">
               <td>
                 <select (change)="handleChange($event, item,i)" class="form-control">
-                  <option defaultValue value="">Select Items</option>
+                  <option defaultValue value="0">Select Items</option>
                   <option *ngFor="let product of products" [value]="product.price" [selected]="product.name === item.itemName">{{ product.name }}</option>
                 </select>
               </td>
               <td>
-                <input class="form-control" type="text" name="unitPrice" [value]="item.unitPrice" />
+                <input class="form-control" type="text" name="unitPrice" (input)="handlePrice($event, item, i)" [value]="item.unitPrice" />
               </td>
               <td>
                 <input class="form-control" type="number" name="quantity" (input)="handleQuantityChange($event, item)" (change)="handleQuantityChange($event, item)" [value]="item.quantity" />
               </td>
               <td>
-                <input class="form-control" type="number" [value]="item.unitPrice * item.quantity" name="amount" />
+                <input class="form-control" type="number" [value]="item.unitPrice * item.quantity" name="amount" readonly />
               </td>
               <td>
                 <button class="btn btn-sm btn-danger" type="button" (click)="removeItem(i)">Delete</button>

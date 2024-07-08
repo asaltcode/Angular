@@ -53,6 +53,11 @@ export class ProductcomponentComponent implements OnInit {
     this.calculateTotal();
   }
 
+  handlePrice(event: Event, item: any, i:any){
+    const inputElement = event.target as HTMLInputElement;
+    this.currentOrder.items[i].unitPrice = inputElement.value
+    this.calculateTotal()
+  }
   handleQuantityChange(event: Event, item: any): void {
     const inputElement = event.target as HTMLInputElement;
     let value = +inputElement.value; // Convert input value to number
@@ -89,8 +94,6 @@ export class ProductcomponentComponent implements OnInit {
      this.currentOrder.orderAmount = newArray.reduce((total: number, item: any) => {
       return total + (item.unitPrice * item.quantity);
     }, 0);
-
-     console.log(newArray)
   }
   handleSave(orderId: string): void {
     let data = {

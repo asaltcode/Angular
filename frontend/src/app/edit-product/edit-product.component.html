@@ -40,7 +40,10 @@
       </label>
      @if (setAvatarPreview) {
        <img class="image" src={{setAvatarPreview}} alt="">
-     }@else {
+      }@else if (currentProduct.image) {
+        <img class="image" src={{currentProduct.image}} alt="">
+      }
+     @else {
       <img class="image" src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044872-6430781.png" alt="">
      }
   </div>

@@ -50,13 +50,10 @@ export class EditProductComponent implements OnInit {
    handleSave(){
    let formData = new FormData();
    formData.append('image', this.selectedFile);
-   formData.append('name', this.currentProduct.name)
-   formData.append('price', this.currentProduct.price)
-
-
-
+   formData.append('name', this.currentProduct.name);
+   formData.append('price', this.currentProduct.price);
     this.apiService.editProduct(this.id, formData).subscribe((data)=>{
-     this.router.navigate(["items"])
+     this.router.navigate(["items"]);
     })
   }
 }
