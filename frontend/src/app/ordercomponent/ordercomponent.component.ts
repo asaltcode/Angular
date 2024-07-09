@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-ordercomponent',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatAutocompleteModule, MatFormFieldModule, MatLabel, ReactiveFormsModule],
   templateUrl: './ordercomponent.component.html',
   styleUrl: './ordercomponent.component.css'
 })
 export class OrdercomponentComponent implements OnInit{
   orders:any[] = []
+
+ 
 
 formatDateString(isoString:any) { //This is order date formater
   const date = new Date(isoString);
@@ -42,7 +47,9 @@ getOrders () {
 
 ngOnInit(): void {
   this.getOrders()
+ 
 }
+
 
 //This is delete single order
 

@@ -102,7 +102,6 @@ const editProduct = async (req, res, next) =>{
         })
     }
 }
-
 const searchProduct = async (req, res, next) => {
     try {
     const ApiFeatre = new APIFeatures(ProductModel.find(), req.query).search()

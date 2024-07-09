@@ -4,6 +4,7 @@ import { ProductcomponentComponent } from './productcomponent/productcomponent.c
 import { ItemsComponent } from './items/items.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { TestComponent } from './test/test.component';
 
 
 export const routes: Routes = [
@@ -32,4 +33,8 @@ export const routes: Routes = [
         title: "Edit Product",
         component: EditProductComponent
     },
+    {
+        path: "test",
+        component: TestComponent
+    }
 ];
