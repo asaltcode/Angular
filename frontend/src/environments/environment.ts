@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl : "https://super-market-backend-plum.vercel.app"
+    apiUrl : "https://angular-v8sm.vercel.app"
 };
